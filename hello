@@ -1,0 +1,1 @@
+{"SY": {"a": [{"ip_from": 1, "ip_to": 100}, {"ip_from": 250, "ip_to": 300}], "b": [{"ip_from": 50, "ip_to": 150}, {"ip_from": 250, "ip_to": 270}], "c": [{"ip_from": 250, "ip_to": 260}, {"ip_from": 350, "ip_to": 470}]}}
