@@ -7,20 +7,23 @@ def ip_str2int(ip):
   packedIP = socket.inet_aton(ip)
   return struct.unpack("!L", packedIP)[0]
 
+def ip_int2str(i):
+	return socket.inet_ntoa(struct.pack('!L',i)) 
+
 def dfs(p,pi,n):
   if n in dl:
     el[pi][3] = 1
-    print el[pi]
+    print ip_int2str(el[pi][0]),ip_int2str(el[pi][1])
     return
 
   if ind.has_key(n):
     i = ind[n]
     while i<len(el) and el[i][0] == n:
-      if el[i][2] == 1 or el[i][1] in p:
-        i+=1
-        continue
       if pi != -1 and el[i][3] == 1:
         el[pi][3] = 1
+        i+=1
+        continue
+      if el[i][2] == 1 or el[i][1] in p:
         i+=1
         continue
       dfs(p + [n], i, el[i][1])
@@ -28,7 +31,7 @@ def dfs(p,pi,n):
         el[pi][3] = 1
       i+=1
   if pi != -1 and el[pi][3] == 1:
-    print el[pi]
+    print ip_int2str(el[pi][0]),ip_int2str(el[pi][1])
   if pi != -1:
     el[pi][2] = 1
 
