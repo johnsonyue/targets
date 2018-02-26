@@ -11,29 +11,31 @@ def ip_int2str(i):
 	return socket.inet_ntoa(struct.pack('!L',i)) 
 
 def dfs(p,pi,n):
+  if pi != -1 and el[pi][3] == 1:
+    return 1
+  if el[pi][2] == 1 or el[pi][1] in p:
+    return 0
   if n in dl:
     el[pi][3] = 1
     print ip_int2str(el[pi][0]),ip_int2str(el[pi][1])
-    return
+    return 1
 
+  is_sup = False
   if ind.has_key(n):
     i = ind[n]
     while i<len(el) and el[i][0] == n:
-      if pi != -1 and el[i][3] == 1:
-        el[pi][3] = 1
-        i+=1
-        continue
-      if el[i][2] == 1 or el[i][1] in p:
-        i+=1
-        continue
-      dfs(p + [n], i, el[i][1])
-      if pi != -1 and el[i][3] == 1:
-        el[pi][3] = 1
+      if (dfs(p + [n], i, el[i][1])):
+        is_sup = True
       i+=1
-  if pi != -1 and el[pi][3] == 1:
-    print ip_int2str(el[pi][0]),ip_int2str(el[pi][1])
+
   if pi != -1:
-    el[pi][2] = 1
+    if is_sup:
+      el[pi][3] = 1
+      print ip_int2str(el[pi][0]),ip_int2str(el[pi][1])
+      return 1
+    else:
+      el[pi][2] = 1
+      return 0
 
 #main
 sl = map(ip_str2int, sys.argv[1].split()) #source list
