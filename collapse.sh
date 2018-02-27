@@ -2,12 +2,10 @@ union(){
 python <(
 cat << "EOF"
 #sub
-def find(x,new=False):
+def find(x):
   if not sets.has_key(x):
-    if new:
-      sets[x] = [x,0]
-      return x
-    return -1
+    sets[x] = [x,0]
+    return x
   
   if sets[x][0] == x:
     return x
@@ -15,8 +13,8 @@ def find(x,new=False):
     return find(sets[x][0])
 
 def union(x,y):
-  rx = find(x,True)
-  ry = find(y,True)
+  rx = find(x)
+  ry = find(y)
   if rx == ry:
     return
   if sets[rx][1] < sets[ry][1]:
